@@ -1,0 +1,34 @@
+// Utilities
+@use 'utilities/variables' as v;
+
+
+// Components
+@use 'components/header';
+@use 'components/hero';
+@use 'components/planning-section';
+@use 'components/feature-article';
+@use 'components/button';
+@use 'components/footer';
+
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: v.$roboto;
+}
+
+body {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100dvh;
+    background-color: v.$primary-color;
+}
+
+main{
+    margin-top: 4rem;
+    flex-grow: 1;
+    max-width: 1500px;
+}

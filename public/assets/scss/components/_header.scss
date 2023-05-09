@@ -1,0 +1,27 @@
+@use '../utilities/variables' as v;
+
+header {
+    position: fixed;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: v.$primary-color;
+
+    .logo{        
+        a{
+            text-decoration: none;
+            color: v.$accent-color;
+        }
+    }
+
+    div {
+        a {
+            margin: 1rem;
+            text-decoration: none;
+            color: black;
+        }
+    }
+}
