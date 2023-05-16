@@ -1,5 +1,11 @@
-<%- include('partials/head', {title: "Travel-planner - Get started"}); %>
+<%- include('partials/head', { title: "Travel-planner - Get started" }); %>
+
 <main>
-    
+    <h3>Click on the map to set a marker</h3>
+    <button>Clear map</button>
+    <div id="map"></div>
 </main>
+
+<script src="public/js/maps.js" defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= apiKey %>&callback=initMap" defer></script>
 <%- include('partials/footer') %>

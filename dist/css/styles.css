@@ -118,6 +118,15 @@ main a:hover {
   scale: 1.05;
 }
 
+button {
+  padding: 0.4rem;
+}
+
+#map {
+  height: 100%;
+  aspect-ratio: 1;
+}
+
 footer {
   display: flex;
   flex-direction: column;
@@ -154,8 +163,9 @@ body {
 }
 
 main {
-  margin-top: 4rem;
+  margin-top: 6rem;
   flex-grow: 1;
+  min-width: 100%;
   max-width: 1500px;
 }
 

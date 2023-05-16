@@ -8,6 +8,7 @@
 @use 'components/planning-section';
 @use 'components/feature-article';
 @use 'components/button';
+@use 'components/map';
 @use 'components/footer';
 
 
@@ -28,7 +29,8 @@ body {
 }
 
 main{
-    margin-top: 4rem;
+    margin-top: 6rem;
     flex-grow: 1;
+    min-width: 100%;
     max-width: 1500px;
 }

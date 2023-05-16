@@ -3,11 +3,13 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-// Connect CSS
-app.use('/dist', express.static('dist'));
+let bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-//Makes the public folder static
-app.use(express.static('public'));
+//Static folders
+app.use('/dist', express.static('dist'));
+app.use('/public', express.static('public'));
 
 // Set EJS as the view engine
 app.set('view engine', 'ejs');
