@@ -1,18 +1,42 @@
 let originMarker = null;
 const destinationMarkers = [];
 let directionsRenderer = null;
+const detailsContainer = document.getElementById('route-details');
 
 
-function initMap() {
+// Get geoloaction from user
+navigator.geolocation.getCurrentPosition(
+    (position) => {
+        const latitude = position.coords.latitude.toFixed(3);
+        const longitude = position.coords.longitude.toFixed(3);
+        initMap(latitude, longitude);
+    },
+    (error) => {
+        const defaultLatitude = 0;
+        const defaultLongitude = 0;
+        console.log(error);
+        initMap(defaultLatitude, defaultLongitude);
+    }
+);
+
+
+
+// Initialize map
+function initMap(latitude, longitude) {
+    if (typeof (latitude) === 'undefined' || typeof (longitude) === 'undefined') {
+        latitude = 0;
+        longitude = 0;
+    }
+
     const bounds = new google.maps.LatLngBounds();
     const markersArray = [];
     const map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: 55.53, lng: 9.4 },
+        center: { lat: Number(latitude), lng: Number(longitude) },
         zoom: 10,
     });
 
 
-    // Initialize services
+    // Initialize Google services
     const geocoder = new google.maps.Geocoder();
     const service = new google.maps.DistanceMatrixService();
     const directionsService = new google.maps.DirectionsService();
@@ -20,6 +44,7 @@ function initMap() {
 
     // Handle click event on map
     map.addListener("click", (event) => {
+        detailsContainer.innerHTML = '';
         if (originMarker === null) {
             originMarker = createMarker(event.latLng, "O");
         } else {
@@ -30,8 +55,14 @@ function initMap() {
     });
 
 
+    // Add a "clear" button to the map
+    const clearButton = document.createElement("button");
+    clearButton.innerText = 'Clear route';
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(clearButton);
+
+
     // Clear map
-    document.querySelector('button').addEventListener("click", () => {
+    clearButton.addEventListener("click", () => {
         deleteMarkers(markersArray);
         originMarker = null;
         destinationMarkers.length = 0;
@@ -52,7 +83,7 @@ function initMap() {
         markersArray.push(marker);
         return marker;
     }
-    
+
 
     function calculateDistance() {
         const origin = { lat: originMarker.getPosition().lat(), lng: originMarker.getPosition().lng() };
@@ -101,8 +132,21 @@ function initMap() {
 
                     const route = result.routes[0];
 
-                    // Information of each stop in the route
-                    console.log(route.legs);
+                    // Calculate total distance and duration
+                    let totalDistance = 0;
+                    let totalDuration = 0;
+
+                    for (let i = 0; i < results.length; i++) {
+                        const distance = results[i].distance.value; // distance in meters
+                        const duration = results[i].duration.value; // duration in seconds
+
+                        totalDistance += distance;
+                        totalDuration += duration;
+                    }
+
+                    // Display information from the route
+                    detailsContainer.innerHTML = `Total Distance: (${(totalDistance / 1000).toFixed(2)} km)<br>
+                                                  Total Duration: (${(totalDuration / 60).toFixed(2)} minutes)`;
                 }
             });
         });
@@ -118,5 +162,3 @@ function deleteMarkers(markersArray) {
 
     markersArray.length = 0;
 }
-
-window.initMap = initMap;

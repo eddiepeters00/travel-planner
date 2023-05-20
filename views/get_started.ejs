@@ -1,9 +1,12 @@
 <%- include('partials/head', { title: "Travel-planner - Get started" }); %>
 
 <main>
-    <h3>Click on the map to set a marker</h3>
-    <button>Clear map</button>
+    <section class="hero">
+        <h2>Plan your trip!</h2>
+        <h3>Click on the destinations of your choice to create a route.</h3>
+    </section>
     <div id="map"></div>
+    <div class="details-container" id="route-details"></div>
 </main>
 
 <script src="public/js/maps.js" defer></script>
