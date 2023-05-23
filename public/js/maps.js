@@ -137,8 +137,8 @@ function initMap(latitude, longitude) {
                     let totalDuration = 0;
 
                     for (let i = 0; i < results.length; i++) {
-                        const distance = results[i].distance.value; // distance in meters
-                        const duration = results[i].duration.value; // duration in seconds
+                        const distance = results[i].distance.value;
+                        const duration = results[i].duration.value;
 
                         totalDistance += distance;
                         totalDuration += duration;
